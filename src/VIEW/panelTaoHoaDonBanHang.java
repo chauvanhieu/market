@@ -6,6 +6,7 @@ import CLASS.chiTietHoaDon;
 import CLASS.sanPham;
 import COMPONENT.DetailedComboBox;
 import HELPER.helper;
+import MODEL.MDLoaiSanPham;
 import MODEL.MDSanPham;
 import java.awt.Font;
 import java.awt.Image;
@@ -32,7 +33,8 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
     public static Account acc;
     private ArrayList<chiTietHoaDon> dataChiTietHoaDon = new ArrayList<>();
     private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
-    private ArrayList<sanPham> listLoaiSanPham = MDSanPham.getDataToTable();
+    private ArrayList<String> listLoaiSanPham = MDLoaiSanPham.getNames();
+    private ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
 
     public panelTaoHoaDonBanHang(Account account) {
         this.acc = account;
@@ -43,7 +45,8 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         loadComboboxKhachHang();
 
         UIManager.put("Table.consistentHomeEndKeyBehavior", true);
-
+        // load comboBox loại sản phẩm
+        loadComboboxLoaiSanPham();
         // add icon search 
         helper.addIconSearch(txtTimKiemSanPham);
         // add key listener cho nút quét mã vạch
@@ -51,6 +54,15 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         //set model table sản phẩm
         setModelTableSanPham();
         loadTableSanPham();
+    }
+
+    public void loadComboboxLoaiSanPham() {
+        cbLoaiSanPham.removeAllItems();
+        cbLoaiSanPham.addItem("Tất cả");
+        for (String name : listLoaiSanPham) {
+            cbLoaiSanPham.addItem(name);
+        }
+        cbLoaiSanPham.setSelectedIndex(0);
     }
 
     public void addKeyEnter() {
@@ -184,7 +196,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         btnEnter = new javax.swing.JButton();
         txtTimKiemSanPham = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbLoaiSanPham = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableSanPham = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
@@ -246,11 +258,11 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
 
         txtTimKiemSanPham.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Bia", "Nước ngọt", "Bánh", "Sữa", "Gia vị", "Đồ gia dụng" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        cbLoaiSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Bia", "Nước ngọt", "Bánh", "Sữa", "Gia vị", "Đồ gia dụng" }));
+        cbLoaiSanPham.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                cbLoaiSanPhamItemStateChanged(evt);
             }
         });
 
@@ -310,7 +322,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                         .addGap(0, 334, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbLoaiSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtTimKiemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -337,7 +349,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtTimKiemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbLoaiSanPham, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
                 .addContainerGap())
@@ -743,20 +755,41 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
             addGioHang(sp);
         }
     }//GEN-LAST:event_tableSanPhamMousePressed
-
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    public void loadTableSanPham(String loaiSanPham) {
+        DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
+        model.setRowCount(0);
+        String path = "src/IMAGE/";
+        for (sanPham item : dataSanPhamTable) {
+           
+            if (loaiSanPham.equals("Tất cả") || item.getIdLoaiSanPham().equals(loaiSanPham)) {
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(path + item.getHinhAnh()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                model.addRow(new Object[]{
+                    imageIcon,
+                    item.getIdSanPham(),
+                    item.getName(),
+                    item.getBarcode(),
+                    item.getIdDonViTinh(),
+                    item.getSoLuong(),
+                    helper.LongToString(item.getGiaBan())
+                });
+            }
+        }
+        tableSanPham.setModel(model);
+    }
+    private void cbLoaiSanPhamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbLoaiSanPhamItemStateChanged
+        String loaSanPham = cbLoaiSanPham.getSelectedItem() + "";
+        loadTableSanPham(loaSanPham);
+    }//GEN-LAST:event_cbLoaiSanPhamItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnThanhToan;
+    private javax.swing.JComboBox<String> cbLoaiSanPham;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

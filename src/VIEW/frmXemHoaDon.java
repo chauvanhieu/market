@@ -34,23 +34,9 @@ public class frmXemHoaDon extends javax.swing.JDialog {
     private ArrayList<chiTietHoaDon> dataChiTietHoaDon = new ArrayList<>();
     private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
     private ArrayList<String> listLoaiSanPham = MDLoaiSanPham.getNames();
+    private ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
 
     public frmXemHoaDon(java.awt.Frame parent, boolean modal, Account account) {
-//        super(parent, modal);
-//        this.acc = account;
-//        initComponents();
-//        setTitle("Hóa đơn : HD012345");
-//        // load combobox thông tin khách hàng
-//        loadComboboxKhachHang();
-//        addKeyEnter();
-//        // load comboBox loại sản phẩm
-//        loadComboboxLoaiSanPham();
-//        // load combobox thông tin khách hàng
-//        loadComboboxKhachHang();
-//
-//        setModelTableSanPham();
-//        loadTableSanPham();
-//        HELPER.helper.addIconSearch(txtTimKiemSanPham);
 
         this.acc = account;
         initComponents();
@@ -753,7 +739,7 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
         String path = "src/IMAGE/";
-        for (sanPham item : dataSanPham) {
+        for (sanPham item : dataSanPhamTable) {
             if (loaiSanPham.equals("Tất cả") || item.getIdLoaiSanPham().equals(loaiSanPham)) {
                 ImageIcon imageIcon = new ImageIcon(new ImageIcon(path + item.getHinhAnh()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
                 model.addRow(new Object[]{
