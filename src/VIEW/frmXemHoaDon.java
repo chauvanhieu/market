@@ -35,6 +35,7 @@ public class frmXemHoaDon extends javax.swing.JDialog {
     private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
     private ArrayList<String> listLoaiSanPham = MDLoaiSanPham.getNames();
     private ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
+    private String path = "src/IMAGE/";
 
     public frmXemHoaDon(java.awt.Frame parent, boolean modal, Account account) {
 
@@ -182,7 +183,6 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         ArrayList<sanPham> data = MDSanPham.getDataToTable();
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
-        String path = "src/IMAGE/";
         for (sanPham item : data) {
             ImageIcon imageIcon = new ImageIcon(new ImageIcon(path + item.getHinhAnh()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
             model.addRow(new Object[]{
@@ -325,6 +325,11 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         });
 
         txtTimKiemSanPham.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTimKiemSanPham.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemSanPhamKeyReleased(evt);
+            }
+        });
 
         cbLoaiSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cbLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Bia", "Nước ngọt", "Bánh", "Sữa", "Gia vị", "Đồ gia dụng" }));
@@ -735,10 +740,35 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         cbLoaiSanPham.setSelectedIndex(0);
     }
 
+    public void loadTableSanPhamKeyReleased(String keyword) {
+        cbLoaiSanPham.setSelectedIndex(0);
+        DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
+        model.setRowCount(0);
+
+        for (sanPham item : dataSanPhamTable) {
+            if (item.getIdSanPham().toLowerCase().contains(keyword.toLowerCase())
+                    || item.getName().toLowerCase().contains(keyword.toLowerCase())
+                    || helper.removeAccent(item.getIdSanPham().toLowerCase()).contains(keyword.toLowerCase())
+                    || helper.removeAccent(item.getName().toLowerCase()).contains(keyword.toLowerCase())) {
+
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(path + item.getHinhAnh()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                model.addRow(new Object[]{
+                    imageIcon,
+                    item.getIdSanPham(),
+                    item.getName(),
+                    item.getBarcode(),
+                    item.getIdDonViTinh(),
+                    item.getSoLuong(),
+                    helper.LongToString(item.getGiaBan())
+                });
+            }
+        }
+        tableSanPham.setModel(model);
+    }
+
     public void loadTableSanPham(String loaiSanPham) {
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
-        String path = "src/IMAGE/";
         for (sanPham item : dataSanPhamTable) {
             if (loaiSanPham.equals("Tất cả") || item.getIdLoaiSanPham().equals(loaiSanPham)) {
                 ImageIcon imageIcon = new ImageIcon(new ImageIcon(path + item.getHinhAnh()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
@@ -760,6 +790,10 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         String loaSanPham = cbLoaiSanPham.getSelectedItem() + "";
         loadTableSanPham(loaSanPham);
     }//GEN-LAST:event_cbLoaiSanPhamItemStateChanged
+
+    private void txtTimKiemSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamKeyReleased
+        loadTableSanPhamKeyReleased(txtTimKiemSanPham.getText());
+    }//GEN-LAST:event_txtTimKiemSanPhamKeyReleased
 
     /**
      * @param args the command line arguments
