@@ -58,6 +58,9 @@ public class PanelThongKeTongHop extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableDoanhThuLoiNhuan = new javax.swing.JTable();
 
+        setRequestFocusEnabled(false);
+        setVerifyInputWhenFocusTarget(false);
+
         gridPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
@@ -320,6 +323,7 @@ public class PanelThongKeTongHop extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableHoaDonTrongNgay.setFocusable(false);
         tableHoaDonTrongNgay.setRowHeight(35);
         tableHoaDonTrongNgay.setRowMargin(3);
         tableHoaDonTrongNgay.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -359,6 +363,7 @@ public class PanelThongKeTongHop extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableSanPhamSapHetHang.setFocusable(false);
         tableSanPhamSapHetHang.setRowHeight(35);
         tableSanPhamSapHetHang.setRowMargin(3);
         tableSanPhamSapHetHang.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -398,6 +403,7 @@ public class PanelThongKeTongHop extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableDoanhThuLoiNhuan.setFocusable(false);
         tableDoanhThuLoiNhuan.setRowHeight(35);
         tableDoanhThuLoiNhuan.setRowMargin(3);
         tableDoanhThuLoiNhuan.addFocusListener(new java.awt.event.FocusAdapter() {

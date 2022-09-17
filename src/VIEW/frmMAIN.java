@@ -17,14 +17,19 @@ import MODEL.MDNhanVien;
 import MODEL.MDSanPham;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.IntConsumer;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -73,6 +78,23 @@ public class frmMAIN extends javax.swing.JFrame {
 
         // set table text center
         setTableTextCenter();
+        addKeyEsc();
+    }
+
+    public void addKeyEsc() {
+        InputMap inputMap = tabbed.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke("ESCAPE"), "VK_ESCAPE");
+        tabbed.getActionMap().put("VK_ESCAPE", new AbstractAction() {
+            public void actionPerformed(ActionEvent evt) {
+                if (tabbed.getTabCount() > 0) {
+                    tabbed.remove(tabbed.getSelectedIndex());
+                    if (tabbed.getTabCount() == 0) {
+                        panelMain.removeAll();
+                        panelMain.add(new PanelThongKeTongHop(acc));
+                    }
+                }
+            }
+        });
     }
 
     public void showIconCloseTab() {
@@ -506,6 +528,11 @@ public class frmMAIN extends javax.swing.JFrame {
         jMenuItem27 = new javax.swing.JMenuItem();
 
         tabbed.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tabbed.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabbedKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -1773,6 +1800,7 @@ public class frmMAIN extends javax.swing.JFrame {
 
         jMenu5.setText("Xuất kho");
 
+        menuTaoHoaDonBanHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
         menuTaoHoaDonBanHang.setText("Tạo đơn bán hàng");
         menuTaoHoaDonBanHang.setMargin(new java.awt.Insets(6, 6, 6, 6));
         menuTaoHoaDonBanHang.addActionListener(new java.awt.event.ActionListener() {
@@ -1874,6 +1902,7 @@ public class frmMAIN extends javax.swing.JFrame {
             tabbed.add(panel);
             tabbed.setSelectedIndex(tabbed.getTabCount() - 1);
         }
+        panel.txtBarcode.requestFocus();
         panel.txtBarcode.requestFocus();
     }
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -2070,6 +2099,10 @@ public class frmMAIN extends javax.swing.JFrame {
     private void btnReloadTableSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadTableSanPhamActionPerformed
         loadTableSanPham();
     }//GEN-LAST:event_btnReloadTableSanPhamActionPerformed
+
+    private void tabbedKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabbedKeyPressed
+
+    }//GEN-LAST:event_tabbedKeyPressed
     public void openTab(JPanel TypeOfPanel, String name) {
         JPanel tab = TypeOfPanel;
         tab.setName(name);

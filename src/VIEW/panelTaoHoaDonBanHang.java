@@ -51,10 +51,11 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         // add icon search 
         helper.addIconSearch(txtTimKiemSanPham);
         // add key listener cho nút quét mã vạch
-        addKeyEnter();
+        setKeyPress();
         //set model table sản phẩm
         setModelTableSanPham();
         loadTableSanPham();
+        txtBarcode.requestFocus();
     }
 
     public void loadComboboxLoaiSanPham() {
@@ -66,14 +67,38 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         cbLoaiSanPham.setSelectedIndex(0);
     }
 
-    public void addKeyEnter() {
+    public void setKeyPress() {
+        // nút enter
         InputMap inputMap = btnEnter.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke("ENTER"), "KEY_ENTER");
         btnEnter.getActionMap().put("KEY_ENTER", new AbstractAction() {
             public void actionPerformed(ActionEvent evt) {
+
                 if (txtBarcode.isFocusable()) {
                     btnEnter.doClick();
                 }
+            }
+        });
+
+        // nút F9
+        InputMap f9 = btnThanhToan.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        f9.put(KeyStroke.getKeyStroke("F9"), "VK_F9");
+        btnThanhToan.getActionMap().put("VK_F9", new AbstractAction() {
+            public void actionPerformed(ActionEvent evt) {
+
+                btnThanhToan.doClick();
+
+            }
+        });
+
+        //nút F10
+        InputMap f10 = jButton5.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        f10.put(KeyStroke.getKeyStroke("F10"), "VK_F10");
+        jButton5.getActionMap().put("VK_F10", new AbstractAction() {
+            public void actionPerformed(ActionEvent evt) {
+
+                jButton5.doClick();
+
             }
         });
     }
@@ -247,6 +272,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jButton3 = new javax.swing.JButton();
 
+        setNextFocusableComponent(txtBarcode);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -316,6 +342,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableSanPham.setFocusable(false);
         tableSanPham.setRowHeight(80);
         tableSanPham.setRowMargin(3);
         tableSanPham.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -349,7 +376,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                     .addComponent(jSeparator1)
                     .addComponent(jScrollPane3)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 334, Short.MAX_VALUE)
+                        .addGap(0, 220, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(cbLoaiSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,6 +439,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableGioHang.setFocusable(false);
         tableGioHang.setRowHeight(30);
         tableGioHang.setRowMargin(3);
         tableGioHang.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -477,8 +505,9 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField4.setFocusable(false);
 
-        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnThanhToan.setText("Thanh toán");
+        btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnThanhToan.setForeground(new java.awt.Color(0, 204, 0));
+        btnThanhToan.setText("Thanh toán (F9)");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
@@ -490,11 +519,13 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton5.setText("In hóa đơn");
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 102, 204));
+        jButton5.setText("Lưu & in (F10)");
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton6.setText("Hủy đơn hàng");
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 0, 51));
+        jButton6.setText("Hủy (ESC)");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -521,7 +552,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6)
-                        .addGap(0, 45, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -564,10 +595,12 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -591,7 +624,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -681,6 +714,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
             return;
         }
         addGioHang(sp);
+        txtBarcode.requestFocus();
     }
 
     public void loadTableGioHang() {
