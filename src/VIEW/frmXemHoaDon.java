@@ -719,6 +719,9 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         for (int i = 0; i < rowCount; i++) {
             dataChiTietHoaDon.get(i).setDonGia(helper.SoLong(tableGioHang.getValueAt(i, 3) + ""));
             dataChiTietHoaDon.get(i).setSoLuong(Integer.parseInt(tableGioHang.getValueAt(i, 2) + ""));
+            if (dataChiTietHoaDon.get(i).getSoLuong() < 1 || dataChiTietHoaDon.get(i).getDonGia()<0) {
+                dataChiTietHoaDon.remove(i);
+            }
         }
         loadTableGioHang();
     }//GEN-LAST:event_tableGioHangKeyReleased

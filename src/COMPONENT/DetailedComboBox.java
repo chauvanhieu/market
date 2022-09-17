@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.plaf.basic.*;
 import javax.swing.plaf.metal.*;
+import javax.swing.plaf.nimbus.*;
 import javax.swing.table.*;
 
 /**

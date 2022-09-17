@@ -19,7 +19,20 @@ public class sanPham {
     public sanPham() {
     }
 
-    public sanPham(String idSanPham, String name, String barcode, String hinhAnh, long giaNhap, long giaBan, int soLuong, int soLuongToiThieu, String idNhaCungCap, String idDonViTinh, String idLoaiSanPham, String ghiChu, boolean trangThai) {
+    public sanPham(
+            String idSanPham,
+            String name,
+            String barcode,
+            String hinhAnh,
+            long giaNhap,
+            long giaBan,
+            int soLuong, 
+            int soLuongToiThieu,
+            String idNhaCungCap,
+            String idDonViTinh,
+            String idLoaiSanPham,
+            String ghiChu,
+            boolean trangThai) {
         this.idSanPham = idSanPham;
         this.name = name;
         this.hinhAnh = hinhAnh;

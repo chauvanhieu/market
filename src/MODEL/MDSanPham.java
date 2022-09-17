@@ -88,15 +88,14 @@ public class MDSanPham {
         }
         return item;
     }
-    
-    
-    
+
     public static void add(sanPham item) {
-        String sql = "insert into SanPham values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into SanPham values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         HELPER.SQLhelper.executeUpdate(sql,
                 item.getIdSanPham(),
                 item.getName(),
                 item.getBarcode(),
+                item.getHinhAnh() == "" ? "empty.png" : item.getHinhAnh(),
                 item.getGiaNhap(),
                 item.getGiaBan(),
                 item.getSoLuong(),

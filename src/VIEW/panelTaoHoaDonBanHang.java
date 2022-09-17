@@ -439,7 +439,6 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tableGioHang.setFocusable(false);
         tableGioHang.setRowHeight(30);
         tableGioHang.setRowMargin(3);
         tableGioHang.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -807,6 +806,9 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         for (int i = 0; i < rowCount; i++) {
             dataChiTietHoaDon.get(i).setDonGia(helper.SoLong(tableGioHang.getValueAt(i, 3) + ""));
             dataChiTietHoaDon.get(i).setSoLuong(Integer.parseInt(tableGioHang.getValueAt(i, 2) + ""));
+            if (dataChiTietHoaDon.get(i).getSoLuong() < 1 || dataChiTietHoaDon.get(i).getDonGia() < 0) {
+                dataChiTietHoaDon.remove(i);
+            }
         }
         loadTableGioHang();
     }//GEN-LAST:event_tableGioHangKeyReleased

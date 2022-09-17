@@ -52,6 +52,7 @@ public class chiTietHoaDon {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
+        
     }
 
     public long getDonGia() {

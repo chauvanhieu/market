@@ -16,6 +16,7 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialOceani
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialPalenightContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -49,11 +50,18 @@ public class helper {
         }
     }
 
+    public static void setTextFieldMoney(JTextField txt) {
+        String txtGiaBan = txt.getText();
+        long tienLuong = SoLong(txtGiaBan);
+        txt.setText(SoString(tienLuong));
+    }
+
     public static config getConfig() {
         config item = null;
         Object obj = null;
         try {
             FileInputStream fi = new FileInputStream("src/TEXT/config.txt");
+            
             ObjectInputStream ois = new ObjectInputStream(fi);
             obj = ois.readObject();
             fi.close();
