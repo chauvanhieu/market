@@ -12,6 +12,27 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MDKhachHang {
 
+    public static ArrayList<khachHang> getDataToComboBox() {
+        ArrayList<khachHang> data = new ArrayList<>();
+        String sql = "SELECT * FROM khachhang WHERE id != 'KH01' ";
+        ResultSet rs = HELPER.SQLhelper.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                data.add(new khachHang(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("sodienthoai"),
+                        rs.getString("diachi"),
+                        rs.getString("ghichu"),
+                        rs.getLong("CongNo"),
+                        rs.getInt("trangthai") == 1 ? true : false
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return data;
+    }
+
     public static ArrayList<khachHang> getDataToTable() {
         ArrayList<khachHang> data = new ArrayList<>();
         String sql = "select * from khachhang";

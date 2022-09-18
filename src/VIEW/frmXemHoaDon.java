@@ -2,10 +2,12 @@ package VIEW;
 
 import CLASS.Account;
 import CLASS.chiTietHoaDon;
+import CLASS.khachHang;
 import CLASS.sanPham;
 import COMPONENT.DetailedComboBox;
 import HELPER.helper;
 import MODEL.MDChiTietHoaDon;
+import MODEL.MDKhachHang;
 import MODEL.MDLoaiSanPham;
 import MODEL.MDSanPham;
 import java.awt.Font;
@@ -32,10 +34,12 @@ public class frmXemHoaDon extends javax.swing.JDialog {
     private DetailedComboBox comboboxKhachHang;
     public static Account acc;
     private ArrayList<chiTietHoaDon> dataChiTietHoaDon = new ArrayList<>();
-    private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
+//    private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
     private ArrayList<String> listLoaiSanPham = MDLoaiSanPham.getNames();
     private ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
     private String path = "src/IMAGE/";
+    private ArrayList<khachHang> dataKhachHang = MDKhachHang.getDataToComboBox();
+    private String idKhachHang = "KH01";
 
     public frmXemHoaDon(java.awt.Frame parent, boolean modal, Account account) {
 
@@ -146,23 +150,11 @@ public class frmXemHoaDon extends javax.swing.JDialog {
 
         List<List<?>> tableData = new ArrayList<List<?>>();
         tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Khách mới", "", "", "")));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 1", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 2", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 3", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 4", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 5", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 6", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 7", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
-        tableData.add(new ArrayList<>(
-                Arrays.asList("KH123", "Nguyễn Văn Khách 8", "0987654321", "51 Nguyễn Tất Thành,Tp.BMT", 2000000)));
+                Arrays.asList("KH01", "KHÁCH MỚI", "", "", "")));
+        for (khachHang kh : dataKhachHang) {
+            tableData.add(new ArrayList<>(
+                    Arrays.asList(kh.getIdKhachHang(), kh.getName(), kh.getSoDienThoai(), kh.getDiaChi(), helper.LongToString(kh.getNo()))));
+        }
         comboboxKhachHang.setTableData(tableData);
         comboboxKhachHang.setFont(new Font("Arial", Font.ITALIC, 16));
         comboboxKhachHang.setSelectedIndex(0);
@@ -171,7 +163,7 @@ public class frmXemHoaDon extends javax.swing.JDialog {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 List<?> rowData = comboboxKhachHang.getSelectedRow();
-                System.out.println(rowData.get(1));
+                idKhachHang = (String) rowData.get(0) + "";
             }
         });
         comboboxKhachHang.setVisible(true);
@@ -719,7 +711,7 @@ public class frmXemHoaDon extends javax.swing.JDialog {
         for (int i = 0; i < rowCount; i++) {
             dataChiTietHoaDon.get(i).setDonGia(helper.SoLong(tableGioHang.getValueAt(i, 3) + ""));
             dataChiTietHoaDon.get(i).setSoLuong(Integer.parseInt(tableGioHang.getValueAt(i, 2) + ""));
-            if (dataChiTietHoaDon.get(i).getSoLuong() < 1 || dataChiTietHoaDon.get(i).getDonGia()<0) {
+            if (dataChiTietHoaDon.get(i).getSoLuong() < 1 || dataChiTietHoaDon.get(i).getDonGia() < 0) {
                 dataChiTietHoaDon.remove(i);
             }
         }

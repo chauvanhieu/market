@@ -1310,6 +1310,11 @@ public class frmMAIN extends javax.swing.JFrame {
         });
         tableSanPham.setRowHeight(80);
         tableSanPham.setRowMargin(3);
+        tableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableSanPhamMousePressed(evt);
+            }
+        });
         jScrollPane8.setViewportView(tableSanPham);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -2127,6 +2132,15 @@ public class frmMAIN extends javax.swing.JFrame {
         frm.setVisible(true);
         loadTableSanPham();
     }//GEN-LAST:event_btnThemSanPhamActionPerformed
+
+    private void tableSanPhamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanPhamMousePressed
+        if (tableSanPham.getSelectedRows().length == 1 && evt.getClickCount() == 2) {
+            String id = tableSanPham.getValueAt(tableSanPham.getSelectedRow(), 1) + "";
+            frmEditorSanPham frm = new frmEditorSanPham(this, true, id);
+            frm.setVisible(true);
+            loadTableSanPham();
+        }
+    }//GEN-LAST:event_tableSanPhamMousePressed
     public void openTab(JPanel TypeOfPanel, String name) {
         JPanel tab = TypeOfPanel;
         tab.setName(name);

@@ -10,7 +10,8 @@ public class MDSanPham {
         ArrayList<sanPham> data = new ArrayList<>();
         String sql = "SELECT sanpham.* ,donvitinh.name as 'dvt', loaisanpham.name as 'lsp' from sanpham "
                 + "join donvitinh on donvitinh.id = sanpham.IDDonViTinh "
-                + "join loaisanpham on loaisanpham.id=sanpham.idLoaiSanPham";
+                + "join loaisanpham on loaisanpham.id=sanpham.idLoaiSanPham"
+                + " order by trangthai desc";
         ResultSet rs = HELPER.SQLhelper.executeQuery(sql);
         try {
             while (rs.next()) {
@@ -119,7 +120,7 @@ public class MDSanPham {
         HELPER.SQLhelper.executeUpdate(sql,
                 sp.getName(),
                 sp.getBarcode(),
-                sp.getHinhAnh(),
+                sp.getHinhAnh() == null ? "empty.png" : sp.getHinhAnh(),
                 sp.getGiaNhap(),
                 sp.getGiaBan(),
                 sp.getSoLuong(),
