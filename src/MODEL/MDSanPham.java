@@ -95,7 +95,7 @@ public class MDSanPham {
                 item.getIdSanPham(),
                 item.getName(),
                 item.getBarcode(),
-                item.getHinhAnh() == "" ? "empty.png" : item.getHinhAnh(),
+                item.getHinhAnh() == null ? "empty.png" : item.getHinhAnh(),
                 item.getGiaNhap(),
                 item.getGiaBan(),
                 item.getSoLuong(),

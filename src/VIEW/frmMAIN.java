@@ -503,6 +503,9 @@ public class frmMAIN extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         menuTaoPhieuChi = new javax.swing.JMenuItem();
         menuDanhSachPhieuChi = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -1768,6 +1771,15 @@ public class frmMAIN extends javax.swing.JFrame {
         jMenu3.add(jMenuItem10);
         jMenu3.add(jSeparator7);
 
+        jMenuItem28.setText("Trả nợ nhà cung cấp");
+        jMenuItem28.setMargin(new java.awt.Insets(6, 6, 6, 6));
+        jMenu3.add(jMenuItem28);
+
+        jMenuItem29.setText("Nhật ký trả nợ NCC");
+        jMenuItem29.setMargin(new java.awt.Insets(6, 6, 6, 6));
+        jMenu3.add(jMenuItem29);
+        jMenu3.add(jSeparator12);
+
         menuTaoPhieuChi.setText("Tạo phiếu chi");
         menuTaoPhieuChi.setMargin(new java.awt.Insets(6, 6, 6, 6));
         menuTaoPhieuChi.addActionListener(new java.awt.event.ActionListener() {
@@ -2202,6 +2214,8 @@ public class frmMAIN extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
+    private javax.swing.JMenuItem jMenuItem28;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -2231,6 +2245,7 @@ public class frmMAIN extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
