@@ -12,6 +12,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MDKhachHang {
 
+    public static void truNo(String idKhachHang, long tien) {
+        String sql = "update khachhang set congno = congno-? where id= ?";
+
+        HELPER.SQLhelper.executeUpdate(sql, tien, idKhachHang);
+    }
+
     public static ArrayList<khachHang> getDataToComboBox() {
         ArrayList<khachHang> data = new ArrayList<>();
         String sql = "SELECT * FROM khachhang WHERE id != 'KH01' ";

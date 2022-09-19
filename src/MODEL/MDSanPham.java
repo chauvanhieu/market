@@ -6,6 +6,25 @@ import java.util.ArrayList;
 
 public class MDSanPham {
 
+    public static void quickAdd(String ten, long giaBan, String barcode) {
+        String sql = "insert into sanpham(id,name,barcode,giaBan,hinhAnh,idnhacungcap,idloaisanpham,iddonvitinh,soluong,soluongtoithieu,trangthai,ghichu) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        HELPER.SQLhelper.executeUpdate(sql,
+                createId(),
+                ten,
+                barcode,
+                giaBan,
+                "empty.png",
+                "01",
+                "01",
+                "01",
+                0,
+                0,
+                true,
+                "Chưa đầy đủ thông tin !!!"
+        );
+    }
+
     public static ArrayList<sanPham> getDataToTable() {
         ArrayList<sanPham> data = new ArrayList<>();
         String sql = "SELECT sanpham.* ,donvitinh.name as 'dvt', loaisanpham.name as 'lsp' from sanpham "

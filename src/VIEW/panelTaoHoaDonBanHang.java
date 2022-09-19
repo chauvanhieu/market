@@ -11,6 +11,7 @@ import MODEL.MDKhachHang;
 import MODEL.MDLoaiSanPham;
 import MODEL.MDSanPham;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -36,7 +37,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
     private ArrayList<chiTietHoaDon> dataChiTietHoaDon = new ArrayList<>();
 //    private ArrayList<sanPham> dataSanPham = MDSanPham.getAll();
     private ArrayList<String> listLoaiSanPham = MDLoaiSanPham.getNames();
-    private ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
+
     private String path = "src/IMAGE/";
     private ArrayList<khachHang> dataKhachHang = MDKhachHang.getDataToComboBox();
     private String idKhachHang = "KH01";
@@ -60,6 +61,12 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         setModelTableSanPham();
         loadTableSanPham();
         txtBarcode.requestFocus();
+    }
+
+    public void themNhanhSanPham() {
+        frmThemNhanhSanPham frm = new frmThemNhanhSanPham((Frame) this.getParent().getParent().getParent().getParent().getParent().getParent(), true);
+        frm.setVisible(true);
+
     }
 
     public void loadComboboxLoaiSanPham() {
@@ -108,6 +115,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
     }
 
     public void loadTableSanPhamKeyReleased(String keyword) {
+        ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
         cbLoaiSanPham.setSelectedIndex(0);
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
@@ -134,6 +142,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
     }
 
     public void loadTableSanPham() {
+        ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
         for (sanPham item : dataSanPhamTable) {
@@ -644,7 +653,8 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        themNhanhSanPham();
+        loadTableSanPham();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void addGioHang(chiTietHoaDon sp) {
@@ -652,7 +662,8 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
 
         if (sp == null) {
             if (JOptionPane.showConfirmDialog(null, "Sản phẩm chưa có. Thêm mới sản phẩm ?") == 0) {
-                // hiện jframe dialog thêm nhanh sản phẩm
+                themNhanhSanPham();
+                loadTableSanPham();
             }
             System.out.println("null");
             txtBarcode.setText("");
@@ -698,7 +709,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         chiTietHoaDon sp = MDChiTietHoaDon.getSanPhamChiTietHoaDon(barcode);
         if (sp == null) {
             if (JOptionPane.showConfirmDialog(null, "Sản phẩm chưa có. Thêm mới sản phẩm ?") == 0) {
-                // hiện jframe dialog thêm nhanh sản phẩm
+                themNhanhSanPham();
             }
             txtBarcode.setText("");
             txtBarcode.requestFocus();
@@ -814,6 +825,7 @@ public class panelTaoHoaDonBanHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tableSanPhamMousePressed
     public void loadTableSanPham(String loaiSanPham) {
+        ArrayList<sanPham> dataSanPhamTable = MDSanPham.getDataToTable();
         DefaultTableModel model = (DefaultTableModel) tableSanPham.getModel();
         model.setRowCount(0);
         for (sanPham item : dataSanPhamTable) {

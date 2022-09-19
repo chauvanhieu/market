@@ -661,32 +661,7 @@ public class frmEditorSanPham extends javax.swing.JDialog {
     }//GEN-LAST:event_txtGiaBanKeyReleased
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-//        String id = MDSanPham.createId();
-//        String name = txtTenSanPham.getText();
-//        String barcode = txtBarcode.getText();
-//        long giaNhap = HELPER.helper.SoLong(txtGiaNhap.getText());
-//        long giaBan = HELPER.helper.SoLong(txtGiaBan.getText());
-//        int soLuong = Integer.parseInt(txtSoLuong.getValue() + "");
-//        int soLuongToiThieu = Integer.parseInt(txtSoLuongToiThieu.getValue() + "");
-//        String ghiChu = txtGhiChu.getText();
-//
-//        sanPham sp = new sanPham(
-//                id,
-//                name,
-//                barcode,
-//                hinhAnh,
-//                giaNhap,
-//                giaBan,
-//                soLuong,
-//                soLuongToiThieu,
-//                idNhaCungCap,
-//                idDonViTinh,
-//                idLoaiSanPham,
-//                ghiChu,
-//                true);
-//        MDSanPham.add(sp);
-//        JOptionPane.showMessageDialog(this, "Đã thêm sản phẩm");
-//        this.setVisible(false);
+
     }//GEN-LAST:event_btnLuuActionPerformed
 
     public static void main(String args[]) {

@@ -534,7 +534,7 @@ public class PanelThongKeTongHop extends javax.swing.JPanel {
         Component panel = (JPanel) this.getParent();
 
         if (tableHoaDonTrongNgay.getSelectedRows().length == 1 && evt.getClickCount() == 2) {
-            new frmXemHoaDon((JFrame) panel.getParent().getParent().getParent().getParent(), true, acc).setVisible(true);
+            new frmXemHoaDon((JFrame) panel.getParent().getParent().getParent().getParent().getParent(), true, acc).setVisible(true);
         }
     }//GEN-LAST:event_tableHoaDonTrongNgayMousePressed
     public void hienThiSanPhamSapHetHang() {

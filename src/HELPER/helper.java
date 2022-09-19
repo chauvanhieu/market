@@ -16,7 +16,6 @@ import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialOceani
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialPalenightContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMonokaiProContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatSolarizedLightContrastIJTheme;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -61,7 +60,7 @@ public class helper {
         Object obj = null;
         try {
             FileInputStream fi = new FileInputStream("src/TEXT/config.txt");
-            
+
             ObjectInputStream ois = new ObjectInputStream(fi);
             obj = ois.readObject();
             fi.close();
@@ -83,6 +82,14 @@ public class helper {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         for (int i = 0; i < table.getColumnCount() - 1; i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+
+    public static void setTableTextCenterFullColumn(JTable table) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
